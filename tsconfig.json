@@ -1,12 +1,10 @@
 {
   "compilerOptions": {
-    /* Language & Environment */
     "target": "ESNext",
     "lib": ["ESNext", "DOM", "DOM.Iterable"],
     "jsx": "react-jsx",
     "useDefineForClassFields": true,
 
-    /* Modules */
     "module": "ESNext",
     "moduleResolution": "bundler",
     "moduleDetection": "force",
@@ -14,20 +12,16 @@
     "resolveJsonModule": true,
     "allowJs": true,
 
-    /* Bun-specific */
     "types": ["bun-types"],
 
-    /* Emit */
     "noEmit": true,
     "verbatimModuleSyntax": true,
 
-    /* Interop */
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "isolatedModules": true,
     "allowSyntheticDefaultImports": true,
 
-    /* Type Checking (strict mode) */
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
@@ -36,7 +30,6 @@
     "noImplicitOverride": true,
     "exactOptionalPropertyTypes": false,
 
-    /* Completeness */
     "skipLibCheck": true,
     "paths": {
       "@/*": ["./src/*"]
