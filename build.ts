@@ -17,6 +17,7 @@ const result = await Bun.build({
   minify: true,
   sourcemap: "none",
   splitting: true,
+  reactCompiler: true,
   define: {
     "process.env.NODE_ENV": JSON.stringify("production"),
   },
@@ -42,4 +43,12 @@ await cp("./public/index.html", `${outdir}/index.html`);
 console.log(`Build succeeded. ${result.outputs.length} file(s) written to ${outdir}/`);
 for (const output of result.outputs) {
   console.log(`  ${output.path} (${(output.size / 1024).toFixed(1)} KB)`);
+}
+
+// 5. Verify React Compiler ran (optional sanity check)
+const entryOutput = result.outputs.find((o) => o.path.endsWith("index.js"));
+if (entryOutput) {
+  const code = await entryOutput.text();
+  const memoized = code.includes("useMemoCache");
+  console.log(`React Compiler: ${memoized ? "active (useMemoCache found)" : "no memo slots detected"}`);
 }
