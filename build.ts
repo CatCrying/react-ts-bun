@@ -1,5 +1,6 @@
 import { rm, cp } from "node:fs/promises";
 import { existsSync } from "node:fs";
+import { $ } from "bun";
 
 const outdir = "./dist";
 
@@ -36,16 +37,24 @@ if (!result.success) {
   process.exit(1);
 }
 
-// 3. Copy static assets (index.html, etc.)
+// 3. Compile Tailwind CSS (production: minified)
+await $`bunx @tailwindcss/cli -i ./src/styles.css -o ${outdir}/styles.css --minify`;
+
+// 4. Copy static assets (index.html, etc.)
 await cp("./public/index.html", `${outdir}/index.html`);
 
-// 4. Report output
-console.log(`Build succeeded. ${result.outputs.length} file(s) written to ${outdir}/`);
+// 5. Report output
+console.log(`Build succeeded. ${result.outputs.length} JS file(s) written to ${outdir}/`);
 for (const output of result.outputs) {
   console.log(`  ${output.path} (${(output.size / 1024).toFixed(1)} KB)`);
 }
 
-// 5. Verify React Compiler ran (optional sanity check)
+const cssFile = Bun.file(`${outdir}/styles.css`);
+if (await cssFile.exists()) {
+  console.log(`  ${outdir}/styles.css (${((await cssFile.size) / 1024).toFixed(1)} KB)`);
+}
+
+// 6. Verify React Compiler ran (optional sanity check)
 const entryOutput = result.outputs.find((o) => o.path.endsWith("index.js"));
 if (entryOutput) {
   const code = await entryOutput.text();
