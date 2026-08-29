@@ -1,12 +1,9 @@
 {
-  "name": "pastebin-app",
+  "name": "pastebin-frontend",
   "version": "1.0.0",
   "private": true,
   "type": "module",
   "packageManager": "bun@1.4.0",
-  "engines": {
-    "node": "24.x"
-  },
   "scripts": {
     "build": "bun run build.ts",
     "typecheck": "bunx tsc --noEmit"
@@ -14,20 +11,12 @@
   "dependencies": {
     "react": "^19",
     "react-dom": "^19",
-    "mongodb": "^6",
-    "bcryptjs": "^2",
-    "jsonwebtoken": "^9",
-    "nanoid": "^5",
     "highlight.js": "^11"
   },
   "devDependencies": {
     "typescript": "^6",
     "@types/react": "^19",
     "@types/react-dom": "^19",
-    "@types/bcryptjs": "^2",
-    "@types/jsonwebtoken": "^9",
-    "@types/node": "^24",
-    "@vercel/node": "^3",
     "tailwindcss": "^4",
     "@tailwindcss/cli": "^4",
     "bun-types": "1.4.0"

@@ -12,7 +12,7 @@
     "resolveJsonModule": true,
     "allowJs": true,
 
-    "types": ["bun-types", "node"],
+    "types": ["bun-types"],
 
     "noEmit": true,
     "verbatimModuleSyntax": true,
@@ -33,6 +33,6 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["src", "api", "build.ts"],
+  "include": ["src", "build.ts"],
   "exclude": ["node_modules", "dist"]
 }
