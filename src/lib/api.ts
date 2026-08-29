@@ -1,3 +1,8 @@
+// Baked in at build time by build.ts (via Bun's `define`) — see the
+// API_BASE_URL comment there. Falls back to the local backend port for
+// anyone running the dev source directly without going through the build.
+const API_BASE = process.env.API_BASE_URL ?? "http://localhost:4000";
+
 export interface PasteCreateResponse {
   id: string;
   secret: string | null;
@@ -37,7 +42,7 @@ async function parseJson<T>(res: Response): Promise<T> {
 }
 
 function post(path: string, body: unknown) {
-  return fetch(path, {
+  return fetch(`${API_BASE}${path}`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     credentials: "include",
@@ -55,11 +60,13 @@ export function createPaste(input: {
 }
 
 export function getPaste(id: string): Promise<PasteView> {
-  return fetch(`/api/pastes/${id}`, { credentials: "include" }).then((r) => parseJson<PasteView>(r));
+  return fetch(`${API_BASE}/api/pastes/${id}`, { credentials: "include" }).then((r) =>
+    parseJson<PasteView>(r),
+  );
 }
 
 export async function deletePaste(id: string, secret: string | null): Promise<void> {
-  const res = await fetch(`/api/pastes/${id}`, {
+  const res = await fetch(`${API_BASE}/api/pastes/${id}`, {
     method: "DELETE",
     headers: { "Content-Type": "application/json" },
     credentials: "include",
@@ -79,17 +86,19 @@ export function login(username: string, password: string): Promise<AuthUser> {
 }
 
 export function logout(): Promise<void> {
-  return fetch("/api/auth/logout", { method: "POST", credentials: "include" }).then(() => undefined);
+  return fetch(`${API_BASE}/api/auth/logout`, { method: "POST", credentials: "include" }).then(
+    () => undefined,
+  );
 }
 
 export async function fetchMe(): Promise<AuthUser | null> {
-  const res = await fetch("/api/auth/me", { credentials: "include" });
+  const res = await fetch(`${API_BASE}/api/auth/me`, { credentials: "include" });
   if (res.status === 401) return null;
   return parseJson<AuthUser>(res);
 }
 
 export function fetchMyPastes(): Promise<{ pastes: MyPasteSummary[] }> {
-  return fetch("/api/pastes/mine", { credentials: "include" }).then((r) =>
+  return fetch(`${API_BASE}/api/pastes/mine`, { credentials: "include" }).then((r) =>
     parseJson<{ pastes: MyPasteSummary[] }>(r),
   );
 }
