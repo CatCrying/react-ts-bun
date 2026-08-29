@@ -16,9 +16,20 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   const pastes = await db
     .collection("pastes")
     .find({ ownerId: auth.userId })
-    .project({ content: 0, secret: 0 })
+    .project<{ _id: string; title: string; language: string; createdAt: Date; expiresAt: Date | null; views: number }>(
+      { content: 0, secret: 0 },
+    )
     .sort({ createdAt: -1 })
     .toArray();
 
-  return res.status(200).json({ pastes });
+  return res.status(200).json({
+    pastes: pastes.map((p) => ({
+      id: p._id,
+      title: p.title,
+      language: p.language,
+      createdAt: p.createdAt,
+      expiresAt: p.expiresAt,
+      views: p.views,
+    })),
+  });
 }

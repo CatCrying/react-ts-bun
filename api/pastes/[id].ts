@@ -29,11 +29,12 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     if (!paste || (paste.expiresAt && paste.expiresAt.getTime() < Date.now())) {
       return res.status(404).json({ error: "Paste not found or expired" });
     }
-    const { views } = await pastes.findOneAndUpdate(
+    const result = await pastes.findOneAndUpdate(
       { _id: id },
       { $inc: { views: 1 } },
       { returnDocument: "after" },
-    ).then((doc) => ({ views: doc?.views ?? paste.views + 1 }));
+    );
+    const views = result?.views ?? paste.views + 1;
 
     return res.status(200).json({
       id: paste._id,
