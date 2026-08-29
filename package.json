@@ -1,21 +1,35 @@
 {
-  "name": "react-ts-bun",
+  "name": "pastebin-app",
   "version": "1.0.0",
   "private": true,
+  "type": "module",
   "packageManager": "bun@1.4.0",
+  "engines": {
+    "node": "20.x"
+  },
   "scripts": {
-    "build": "bun run build.ts"
+    "build": "bun run build.ts",
+    "typecheck": "bunx tsc --noEmit"
   },
   "dependencies": {
     "react": "^19",
-    "react-dom": "^19"
+    "react-dom": "^19",
+    "mongodb": "^6",
+    "bcryptjs": "^2",
+    "jsonwebtoken": "^9",
+    "nanoid": "^5",
+    "highlight.js": "^11"
   },
   "devDependencies": {
-    "@tailwindcss/cli": "^4",
+    "typescript": "6.0.3",
     "@types/react": "^19",
     "@types/react-dom": "^19",
-    "bun-types": "1.4.0",
+    "@types/bcryptjs": "^2",
+    "@types/jsonwebtoken": "^9",
+    "@types/node": "^20",
+    "@vercel/node": "^3",
     "tailwindcss": "^4",
-    "typescript": "^6"
+    "@tailwindcss/cli": "^4",
+    "bun-types": "1.4.0"
   }
 }
