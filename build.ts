@@ -9,7 +9,7 @@ if (existsSync(outdir)) {
   await rm(outdir, { recursive: true, force: true });
 }
 
-// 2. Bundle the app for production
+// 2. Bundle the frontend for production
 const result = await Bun.build({
   entrypoints: ["./src/index.tsx"],
   outdir,
@@ -54,10 +54,5 @@ if (await cssFile.exists()) {
   console.log(`  ${outdir}/styles.css (${((await cssFile.size) / 1024).toFixed(1)} KB)`);
 }
 
-// 6. Verify React Compiler ran (optional sanity check)
-const entryOutput = result.outputs.find((o) => o.path.endsWith("index.js"));
-if (entryOutput) {
-  const code = await entryOutput.text();
-  const memoized = code.includes("useMemoCache");
-  console.log(`React Compiler: ${memoized ? "active (useMemoCache found)" : "no memo slots detected"}`);
-}
+// Note: files under /api are NOT bundled here — Vercel builds each one
+// into its own serverless function at deploy time using its Node.js builder.
