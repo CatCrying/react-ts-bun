@@ -6,7 +6,6 @@ import { bodyOf } from "../_lib/body";
 interface UserDoc {
   username: string;
   passwordHash: string;
-  createdAt: Date;
 }
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
