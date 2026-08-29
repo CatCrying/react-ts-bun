@@ -19,7 +19,7 @@ export interface AuthUser {
 }
 
 export interface MyPasteSummary {
-  _id: string;
+  id: string;
   title: string;
   language: string;
   createdAt: string;
