@@ -5,31 +5,37 @@
   "type": "module",
   "packageManager": "bun@1.4.0",
   "engines": {
-    "node": "24.x"
+    "node": "20.x"
   },
   "scripts": {
     "build": "bun run build.ts",
-    "typecheck": "bunx tsc --noEmit"
+    "typecheck": "bunx tsc --noEmit",
+    "db:indexes": "bun --env-file .env.local scripts/create-indexes.ts"
   },
   "dependencies": {
-    "react": "^19",
-    "react-dom": "^19",
-    "mongodb": "^6",
-    "bcryptjs": "^2",
-    "jsonwebtoken": "^9",
-    "nanoid": "^5",
-    "highlight.js": "^11"
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "mongodb": "^6.10.0",
+    "better-sqlite3": "^11.5.0",
+    "pg": "^8.13.1",
+    "mysql2": "^3.11.4",
+    "bcryptjs": "^2.4.3",
+    "jsonwebtoken": "^9.0.2",
+    "nanoid": "^5.0.9",
+    "highlight.js": "^11.10.0"
   },
   "devDependencies": {
-    "typescript": "6.0.3",
-    "@types/react": "^19",
-    "@types/react-dom": "^19",
-    "@types/bcryptjs": "^2",
-    "@types/jsonwebtoken": "^9",
-    "@types/node": "^24",
-    "@vercel/node": "^3",
-    "tailwindcss": "^4",
-    "@tailwindcss/cli": "^4",
-    "bun-types": "1.4.0"
+    "typescript": "^6.0.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "@types/bcryptjs": "^2.4.6",
+    "@types/jsonwebtoken": "^9.0.7",
+    "@types/better-sqlite3": "^7.6.11",
+    "@types/pg": "^8.11.10",
+    "@types/node": "^22.10.0",
+    "@vercel/node": "^3.2.29",
+    "tailwindcss": "^4.0.0",
+    "@tailwindcss/cli": "^4.0.0",
+    "bun-types": "^1.4.0"
   }
 }
