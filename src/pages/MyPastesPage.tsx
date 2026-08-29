@@ -18,7 +18,7 @@ export function MyPastesPage() {
   async function handleDelete(id: string) {
     try {
       await deletePaste(id, null);
-      setPastes((prev) => prev?.filter((p) => p._id !== id) ?? null);
+      setPastes((prev) => prev?.filter((p) => p.id !== id) ?? null);
     } catch (err) {
       setError(err instanceof Error ? err.message : "Could not delete this paste.");
     }
@@ -63,16 +63,16 @@ export function MyPastesPage() {
         <div className="flex flex-col gap-2">
           {pastes.map((p) => (
             <div
-              key={p._id}
+              key={p.id}
               className="flex items-center justify-between gap-3 rounded-md border border-white/10 bg-white/5 px-4 py-3"
             >
-              <Link to={`/p/${p._id}`} className="min-w-0 flex-1 truncate font-mono text-sm text-white hover:text-emerald-400">
+              <Link to={`/p/${p.id}`} className="min-w-0 flex-1 truncate font-mono text-sm text-white hover:text-emerald-400">
                 {p.title}
               </Link>
               <span className="shrink-0 font-mono text-xs text-slate-500">{p.language}</span>
               <span className="shrink-0 font-mono text-xs text-slate-500">{p.views} views</span>
               <button
-                onClick={() => handleDelete(p._id)}
+                onClick={() => handleDelete(p.id)}
                 className="shrink-0 font-mono text-xs text-red-400 hover:underline"
               >
                 delete
